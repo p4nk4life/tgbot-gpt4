@@ -1,9 +1,9 @@
-version: '3'
-services:
-  tgbot:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '3000:3000'
-    command: make run
+# version: '3'
+# services:
+#   tgbot:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - '3000:3000'
+#     command: make run
