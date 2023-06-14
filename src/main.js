@@ -18,6 +18,8 @@ bot.use(session());
 
 let admins = ['618628269', '169259069'];
 
+
+
 bot.command('clear', async (ctx) => {
   if (admins.includes(ctx.message.from.id.toString())) {
     ctx.session = INITIAL_SESSION;
@@ -62,9 +64,13 @@ function splitResponseIntoChunks(response) {
     chunks.push(chunk);
     start += MAX_MESSAGE_LENGTH;
   }
-Как
+
   return chunks;
 }  
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 bot.on('voice', async (ctx) => {
   if (admins.includes(ctx.message.from.id.toString())) {
@@ -101,7 +107,6 @@ bot.on('voice', async (ctx) => {
 
     } catch (e) {
       console.log('Error while voice message', e.message);
-      process.exit(1);
     }
   } else {
     await ctx.reply('Вы не авторизованы для отправки голосовых сообщений.');
@@ -115,6 +120,8 @@ bot.on('text', async (ctx) => {
       const text = ctx.message.text;
       await ctx.reply(code('Сообщение принято. Ожидайте ответа от ChatGPT'));
 
+      await delay(3000);
+      
       const response = await pTimeout(new Promise((resolve, reject) => {
         ctx.session.messages.push({ role: openai.roles.USER, content: text });
 
@@ -137,7 +144,6 @@ bot.on('text', async (ctx) => {
 
     } catch (e) {
       console.log('Error while handling text message', e.message);
-      process.exit(1);
     }
   } else {
     await ctx.reply('Вы не авторизованы для отправки текстовых сообщений.');
