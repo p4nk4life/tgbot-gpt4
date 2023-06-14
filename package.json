@@ -1,6 +1,7 @@
 {
   "name": "gpt-to-voice",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -20,7 +21,7 @@
     "config": "^3.3.9",
     "fluent-ffmpeg": "^2.1.2",
     "openai": "^3.2.1",
+    "sqlite3": "^5.1.6",
     "telegraf": "^4.12.2"
-  },
-  "description": ""
+  }
 }

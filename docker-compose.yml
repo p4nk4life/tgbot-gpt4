@@ -1,0 +1,7 @@
+version: '3'
+services:
+  bot:
+    build: .
+    restart: always  
+    environment:
+      - TELEGRAM_TOKEN=<6212091275:AAF3ns2L_Bd_CbjuX1-5WF8ipBpVW1FYM8Q>
