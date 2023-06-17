@@ -150,6 +150,8 @@ bot.on('text', async (ctx) => {
   }
 });
 
+
+
 bot.launch();
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
