@@ -89,12 +89,11 @@ bot.on('voice', async (ctx) => {
 
       await delay(3000);
 
-      const response = await openai.chat(ctx.session.messages);
+      const response = await pTimeout(new Promise((resolve, reject) => {
+        ctx.session.messages.push({ role: openai.roles.USER, content: text });
 
-      ctx.session.messages.push({
-        role: openai.roles.USER,
-        content: response.content,
-      });
+        resolve(openai.chat(ctx.session.messages));
+      }), 600000, 'Время ожидания истекло.');
 
       const content = response.content;
 
