@@ -16,7 +16,7 @@ const MAX_MESSAGE_LENGTH = 4096;
 
 bot.use(session());
 
-let admins = ['618628269', '169259069'];
+let admins = ['618628269', '169259069', '108981386'];
 
 
 
