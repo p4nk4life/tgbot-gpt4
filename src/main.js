@@ -18,7 +18,7 @@ bot.use(session());
 
 let admins = ['618628269', '169259069', '108981386'];
 
-
+// Команды
 
 bot.command('clear', async (ctx) => {
   if (admins.includes(ctx.message.from.id.toString())) {
@@ -46,6 +46,8 @@ bot.command('help', async (ctx) => {
 
   await ctx.reply(helpMessage);
 });
+
+// Обработчики событий
 
 async function sendResponseChunks(ctx, chunks) {
   for (let i = 0; i < chunks.length; i++) {
@@ -85,14 +87,10 @@ bot.on('voice', async (ctx) => {
       const text = await openai.transcription(mp3Path);
       await ctx.reply(code(`Ваш запрос: ${text}`));
 
-      ctx.session.messages.push({ role: openai.roles.USER, content: text });
-
       await delay(3000);
 
       const response = await pTimeout(new Promise((resolve, reject) => {
-        ctx.session.messages.push({ role: openai.roles.USER, content: text });
-
-        resolve(openai.chat(ctx.session.messages));
+        resolve(openai.chat([{ role: openai.roles.USER, content: text }]));
       }), 600000, 'Время ожидания истекло.');
 
       const content = response.content;
@@ -122,9 +120,7 @@ bot.on('text', async (ctx) => {
       await delay(3000);
       
       const response = await pTimeout(new Promise((resolve, reject) => {
-        ctx.session.messages.push({ role: openai.roles.USER, content: text });
-
-        resolve(openai.chat(ctx.session.messages));
+        resolve(openai.chat([{ role: openai.roles.USER, content: text }]));
       }), 600000, 'Время ожидания истекло.');
 
       const content = response.content;
